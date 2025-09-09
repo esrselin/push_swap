@@ -1,70 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ps_parse.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: esakgul <esakgul@student.42istanbul.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/04 13:39:07 by esakgul           #+#    #+#             */
+/*   Updated: 2025/09/05 14:58:02 by esakgul          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
-
-static void	error_exit(void)
-{
-	write(2, "Error\n", 6);
-	exit(1);
-}
-static void	ft_free_split(char **arr)
-{
-	size_t	i;
-
-	i = 0;
-	while (arr[i])
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
-}
-
-
-int	ft_isnumber(char *str)
-{
-	int i = 0;
-	int digits = 0;
-
-	if (!str || !str[0])
-		return (0);
-	if (str[i] == '+' || str[i] == '-')
-	{
-		if (str[i + 1] == '+' || str[i + 1] == '-')
-			return (0);
-		i++;
-	}
-	if (!str[i])
-		return (0);
-	while (str[i])
-	{
-		if (str[i] < '0' || str[i] > '9')
-			return (0);
-		digits++;
-		i++;
-	}
-	return (digits > 0);
-}
-
-static int	safe_atoi(const char *s)
-{
-	long	sign = 1;
-	long	res = 0;
-	int		i = 0;
-
-	if (s[i] == '+' || s[i] == '-')
-	{
-		if (s[i] == '-')
-			sign = -1;
-		i++;
-	}
-	while (s[i])
-	{
-		res = res * 10 + (s[i] - '0');
-		if ((sign == 1 && res > 2147483647) || (sign == -1 && res > 2147483648))
-            error_exit();
-		i++;
-	}
-	return ((int)(res * sign));
-}
 
 int	has_duplicate(t_list **a)
 {
@@ -77,7 +23,7 @@ int	has_duplicate(t_list **a)
 		q = p->next;
 		while (q)
 		{
-			if (p->data == q->data) 
+			if (p->data == q->data)
 				return (1);
 			q = q->next;
 		}
@@ -86,37 +32,37 @@ int	has_duplicate(t_list **a)
 	return (0);
 }
 
-void freesel(char **split, t_list **a)
+static int	parse_split(char *arg, t_list **a)
 {
-    write(2, "Error\n", 6);
+	char	**split;
+	int		j;
+
+	split = ft_split(arg, ' ');
+	if (!split)
+		return (0);
+	j = 0;
+	while (split[j])
+	{
+		if (!ft_isnumber(split[j]))
+			ft_freesel(split, a);
+		add_back(a, add_node(ft_safe_atoi(split[j])));
+		j++;
+	}
 	ft_free_split(split);
-	free_stack(a);
-	exit(1);
+	return (1);
 }
 
 t_list	*parse(char *av[])
 {
 	int		i;
-	int		j;
 	t_list	*a;
-	char	**split;
 
-	i = -1;
 	a = NULL;
+	i = -1;
 	while (av[++i])
-	{
-		split = ft_split(av[i], ' ');
-		j = 0;
-		while (split[j])
-		{
-			if (!ft_isnumber(split[j]))
-                freesel(split,&a);
-			add_back(&a, add_node(safe_atoi(split[j])));
-			j++;
-		}
-		ft_free_split(split);
-	}
+		if (!parse_split(av[i], &a))
+			return (free_stack(&a), NULL);
 	if (has_duplicate(&a))
-        free_stack(&a), error_exit();
+		ft_freesel(NULL, &a);
 	return (a);
 }

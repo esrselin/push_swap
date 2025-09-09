@@ -1,39 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ps_push.c                                          :+:      :+:    :+:   */
+/*   ps_index_sort.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: esakgul <esakgul@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/03 17:14:12 by esakgul           #+#    #+#             */
-/*   Updated: 2025/09/03 17:14:13 by esakgul          ###   ########.fr       */
+/*   Created: 2025/08/25 14:07:33 by esakgul           #+#    #+#             */
+/*   Updated: 2025/09/09 18:01:20 by esakgul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	pa(t_list **a, t_list **b)
+void	index_node(t_list *a, int size)
 {
 	t_list	*node;
+	int		pos;
+	int		half;
 
-	if (!b || !*b)
-		return ;
-	node = *b;
-	*b = (*b)->next;
-	node->next = *a;
-	*a = node;
-	write(1, "pa\n", 3);
+	node = a;
+	pos = 0;
+	half = size / 2;
+	while (node)
+	{
+		if (pos < half)
+			node->index = half - 1 - pos;
+		else
+			node->index = -(pos - half + 1);
+		pos++;
+		node = node->next;
+	}
 }
 
-void	pb(t_list **a, t_list **b)
-{
-	t_list	*node;
-
-	if (!a || !*a)
-		return ;
-	node = *a;
-	*a = (*a)->next;
-	node->next = *b;
-	*b = node;
-	write(1, "pb\n", 3);
-}
