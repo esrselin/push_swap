@@ -4,7 +4,8 @@ CFLAGS  = -Wall -Wextra -Werror
 RM      = rm -f
 
 SRCS    = ps_parse.c ps_parse_utils.c ps_utils.c ps_swap.c  ps_rotate.c\
-			ps_push.c ps_revrotate.c ps_index_sort.c
+			ps_push.c ps_revrotate.c ps_index_sort.c ps_b_to_a.c\
+			ps_rotate_stack.c ps_sort.c push_swap.c ps_ranking.c
 OBJS    = $(SRCS:.c=.o)
 
 LIBFT_DIR = libft

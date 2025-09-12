@@ -1,34 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ps_index_sort.c                                    :+:      :+:    :+:   */
+/*   ps_ranking.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: esakgul <esakgul@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/25 14:07:33 by esakgul           #+#    #+#             */
-/*   Updated: 2025/09/11 15:57:17 by esakgul          ###   ########.fr       */
+/*   Created: 2025/09/11 16:55:58 by esakgul           #+#    #+#             */
+/*   Updated: 2025/09/11 17:10:40 by esakgul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	index_node(t_list *a, int size)
+void	set_ranks(t_list *a)
 {
-	t_list	*node;
-	int		pos;
-	int		half;
+	t_list	*i;
+	t_list	*j;
+	int		rank;
 
-	node = a;
-	pos = 0;
-	half = size / 2;
-	while (node)
+	i = a;
+	while (i)
 	{
-		if (pos < half)
-			node->index = half - 1 - pos;
-		else
-			node->index = -(pos - half + 1);
-		pos++;
-		node = node->next;
+		rank = 0;
+		j = a;
+		while (j)
+		{
+			if (j->data < i->data)
+				rank++;
+			j = j->next;
+		}
+		i->index = rank;
+		i = i->next;
 	}
 }
 
+int	pos_to_index(int pos, int size)
+{
+	int	half;
+
+	half = size / 2;
+	if (pos <= half)
+		return (pos);
+	else
+		return (pos - size);
+}

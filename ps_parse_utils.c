@@ -6,13 +6,13 @@
 /*   By: esakgul <esakgul@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 18:31:16 by esakgul           #+#    #+#             */
-/*   Updated: 2025/09/04 13:33:06 by esakgul          ###   ########.fr       */
+/*   Updated: 2025/09/12 10:56:49 by esakgul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	error_exit(void)
+void	error_exit(void)
 {
 	write(2, "Error\n", 6);
 	exit(1);
@@ -41,11 +41,7 @@ int	ft_isnumber(char *str)
 	if (!str || !str[0])
 		return (0);
 	if (str[i] == '+' || str[i] == '-')
-	{
-		if (str[i + 1] == '+' || str[i + 1] == '-')
-			return (0);
 		i++;
-	}
 	if (!str[i])
 		return (0);
 	while (str[i])
@@ -57,7 +53,6 @@ int	ft_isnumber(char *str)
 	}
 	return (digits > 0);
 }
-
 int	ft_safe_atoi(const char *s)
 {
 	long	sign;
@@ -83,6 +78,7 @@ int	ft_safe_atoi(const char *s)
 	}
 	return ((int)(res * sign));
 }
+
 
 void	ft_freesel(char **split, t_list **a)
 {

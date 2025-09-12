@@ -6,7 +6,7 @@
 /*   By: esakgul <esakgul@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 13:39:07 by esakgul           #+#    #+#             */
-/*   Updated: 2025/09/05 14:58:02 by esakgul          ###   ########.fr       */
+/*   Updated: 2025/09/12 10:56:29 by esakgul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ int	has_duplicate(t_list **a)
 	}
 	return (0);
 }
-
-static int	parse_split(char *arg, t_list **a)
+int	parse_split(char *arg, t_list **a)
 {
 	char	**split;
 	int		j;
@@ -51,7 +50,6 @@ static int	parse_split(char *arg, t_list **a)
 	ft_free_split(split);
 	return (1);
 }
-
 t_list	*parse(char *av[])
 {
 	int		i;
@@ -60,9 +58,19 @@ t_list	*parse(char *av[])
 	a = NULL;
 	i = -1;
 	while (av[++i])
-		if (!parse_split(av[i], &a))
-			return (free_stack(&a), NULL);
+	{
+		if (!ft_isnumber(av[i]))
+		{
+			free_stack(&a);
+			error_exit();
+		}
+		add_back(&a, add_node(ft_safe_atoi(av[i])));
+	}
 	if (has_duplicate(&a))
-		ft_freesel(NULL, &a);
+	{
+		free_stack(&a);
+		error_exit();
+	}
+	set_ranks(a);
 	return (a);
 }
