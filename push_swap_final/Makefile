@@ -5,7 +5,7 @@ RM      = rm -f
 
 SRCS    = ps_parse.c ps_parse_utils.c ps_utils.c ps_swap.c  ps_rotate.c\
 			ps_push.c ps_revrotate.c ps_index_sort.c push_swap.c ps_rotate_stacks.c\
-			ps_sort.c ps_position.c
+			ps_sort.c ps_position.c ps_chunk_sort.c
 OBJS    = $(SRCS:.c=.o)
 
 LIBFT_DIR = libft

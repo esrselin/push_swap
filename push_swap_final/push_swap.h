@@ -6,7 +6,7 @@
 /*   By: esakgul <esakgul@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 14:07:28 by esakgul           #+#    #+#             */
-/*   Updated: 2025/10/02 17:40:19 by esakgul          ###   ########.fr       */
+/*   Updated: 2025/10/13 15:59:21 by esakgul          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,7 @@ void	push_back_max(t_list **b, t_list **a);
 int		pos_in_range(t_list *a, int low, int high);
 int		min_index_pos(t_list *s);
 int		max_index_pos(t_list *s, int *out_max);
+
+void	chunk_sort(t_list **a, t_list **b);
 
 #endif
