@@ -1,5 +1,3 @@
----
-
 # push_swap — Sorting via Two Stacks + Chunk/Area-Based Algorithm
 
 ## 📄 Project Overview
